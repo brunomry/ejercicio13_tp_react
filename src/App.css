@@ -20,9 +20,19 @@
   height: 100%;
 }
 
+.sectionClimate{
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  background: #fff8f8;
+  width: 100%;
+}
+
 @media all and (min-width: 768px){
   .sectionForm{
     max-width: 800px;
     height: 200px;
+  }
+
+  .sectionClimate{
+    width: 700px;
   }
 }
