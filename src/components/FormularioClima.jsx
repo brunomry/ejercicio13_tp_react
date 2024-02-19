@@ -1,7 +1,50 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
 import Clima from "./Clima";
+import { useState } from "react";
+import Swal from 'sweetalert2';
 
 const FormularioClima = () => {
+  const [ubicacion, setUbicacion] = useState("");
+  const [pais, setPais] = useState("");
+  const [clima, setClima] = useState(null);
+
+  const consultarAPI = async () => {
+    try {
+      const respuesta = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${ubicacion},${pais}&APPID=bbdf7d22201d867358428f85b0e7c39d&lang=es`
+      );
+      const datos = await respuesta.json();
+
+      if (respuesta.ok) {
+        setClima(datos);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "No se encontró información de la ciudad ingresada",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Se produjo un error",
+      });
+    }
+  };
+
+  const handleQuestionWeather = () => {
+    if (ubicacion === "" || pais === "") {
+      Swal.fire({
+        icon: "warning",
+        title: "Asegúrese de ingresar ambos datos",
+        text: "No se ingresó la ubicación o el país",
+      });
+      return;
+    }
+    consultarAPI();
+  };
+
   return (
     <>
       <section className="sectionForm mx-auto px-2 rounded-3 bg-white ">
@@ -16,10 +59,12 @@ const FormularioClima = () => {
             <Col md="5">
               <Form.Control
                 type="text"
-                placeholder="ubicación"
-                minLength={8}
+                placeholder="Ej: Cafayate"
+                minLength={5}
                 maxLength={25}
                 required
+                value={ubicacion}
+                onChange={(e) => setUbicacion(e.target.value)}
               />
             </Col>
           </Form.Group>
@@ -31,7 +76,11 @@ const FormularioClima = () => {
               Seleccionar País:
             </Form.Label>
             <Col md="5">
-              <Form.Select>
+              <Form.Select
+                value={pais}
+                onChange={(e) => setPais(e.target.value)}
+                required
+              >
                 <option value="">seleccione</option>
                 <option value="af">Afganistán</option>
                 <option value="al">Albania</option>
@@ -116,13 +165,13 @@ const FormularioClima = () => {
             </Col>
           </Form.Group>
           <div className="text-center pt-3 pt-lg-3">
-            <Button variant="primary" className="px-5">
+            <Button variant="primary" className="px-5" onClick={handleQuestionWeather}>
               Consultar Clima
             </Button>
           </div>
         </Form>
       </section>
-      <Clima></Clima>
+      <Clima clima={clima}></Clima>
     </>
   );
 };

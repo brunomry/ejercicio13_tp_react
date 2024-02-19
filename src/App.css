@@ -20,10 +20,16 @@
   height: 100%;
 }
 
-.sectionClimate{
+.sectionWeather{
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
   background: #fff8f8;
   width: 100%;
+  min-height: 300px;
+}
+
+.imgWeather{
+  width: 150px;
+  height: 150px;
 }
 
 @media all and (min-width: 768px){
@@ -32,7 +38,7 @@
     height: 200px;
   }
 
-  .sectionClimate{
+  .sectionWeather{
     width: 700px;
   }
 }
