@@ -20,7 +20,7 @@ const FormularioClima = () => {
       } else {
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: "Ciudad no encontrada",
           text: "No se encontró información de la ciudad ingresada",
         });
       }

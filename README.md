@@ -42,7 +42,6 @@ La aplicación está desplegada en Netlify. Puedes acceder a ella haciendo clic 
 - JavaScript
 - React-Bootstrap
 - Bootstrap
-- Webpack
 - CSS3
 - SweetAlert2
 
